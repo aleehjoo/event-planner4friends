@@ -1,8 +1,12 @@
 import React from 'react'
+import Header from "@/components/Header";
 
 const Page = () => {
     return (
-        <div>Profile Page</div>
+        <div>
+            <Header />
+            Profile Page
+        </div>
     )
 }
 export default Page
