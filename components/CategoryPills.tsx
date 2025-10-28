@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const categories = [
@@ -24,32 +24,65 @@ const categories = [
 
 export default function CategoryPills() {
     const [activePills, setActivePills] = useState<string[]>([]);
+    const scrollRef = useRef<HTMLDivElement>(null);
+    const isDragging = useRef(false);
+    const startX = useRef(0);
+    const scrollLeft = useRef(0);
 
     const handleToggle = (name: string) => {
         setActivePills((prev) => {
             if (prev.includes(name)) {
-                // Unselect → move back to original order
                 return prev.filter((n) => n !== name);
             } else {
-                // Select → bring to front
                 return [name, ...prev];
             }
         });
     };
 
-    // Sort active pills first
+    // --- drag scroll behavior ---
+    const onMouseDown = (e: React.MouseEvent) => {
+        if (!scrollRef.current) return;
+        isDragging.current = true;
+        startX.current = e.pageX - scrollRef.current.offsetLeft;
+        scrollLeft.current = scrollRef.current.scrollLeft;
+    };
+
+    const onMouseLeave = () => {
+        isDragging.current = false;
+    };
+
+    const onMouseUp = () => {
+        isDragging.current = false;
+    };
+
+    const onMouseMove = (e: React.MouseEvent) => {
+        if (!isDragging.current || !scrollRef.current) return;
+        e.preventDefault();
+        const x = e.pageX - scrollRef.current.offsetLeft;
+        const walk = (x - startX.current) * 1.2; // adjust drag speed
+        scrollRef.current.scrollLeft = scrollLeft.current - walk;
+    };
+
     const sortedCategories = [
         ...categories.filter((c) => activePills.includes(c.name)),
         ...categories.filter((c) => !activePills.includes(c.name)),
     ];
 
     return (
-        <div className="w-full overflow-x-auto no-scrollbar">
+        <div
+            ref={scrollRef}
+            onMouseDown={onMouseDown}
+            onMouseLeave={onMouseLeave}
+            onMouseUp={onMouseUp}
+            onMouseMove={onMouseMove}
+            className="
+        w-full cursor-grab active:cursor-grabbing
+        overflow-x-hidden select-none
+      "
+        >
             <div
                 className="
-          flex gap-3 sm:gap-4 px-6 sm:px-10 py-3 sm:py-4
-          min-w-max
-          sm:justify-start
+          flex gap-3 sm:gap-4 px-6 sm:px-10 py-3 sm:py-4 min-w-max
         "
             >
                 <AnimatePresence initial={false}>

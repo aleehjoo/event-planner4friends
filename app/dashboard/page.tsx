@@ -6,8 +6,10 @@ const Page = () => {
     return (
         <div>
             <Header />
-            Dashboard Page
             <CategoryPills />
+            <h2 className="px-10">Available Events</h2>
+
+            Dashboard Page
         </div>
     )
 }
