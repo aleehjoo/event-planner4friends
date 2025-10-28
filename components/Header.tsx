@@ -14,8 +14,7 @@ export default function Header() {
     ];
 
     return (
-        <header className="flex items-center justify-between w-full px-10 py-5 bg-white shadow-sm">
-            {/* Left Side - Avatar + Welcome */}
+        <header className="flex items-center justify-between w-full px-10 py-5 bg-white shadow-md">
             <div className="flex items-center gap-4">
                 <div className="w-14 h-14 rounded-full bg-gray-300" />
                 <div className="flex flex-col leading-tight">
@@ -24,7 +23,6 @@ export default function Header() {
                 </div>
             </div>
 
-            {/* Right Side - Nav + Bell */}
             <div className="flex items-center gap-10">
                 <nav className="hidden md:flex items-center gap-8">
                     {navItems.map((item) => (
