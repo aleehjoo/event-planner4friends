@@ -1,8 +1,15 @@
 import React from 'react'
+import MobileNav from "@/components/MobileNav";
+import Header from "@/components/Header";
 
 const Page = () => {
     return (
-        <div>List of Events Page</div>
+        <div>
+            <Header />
+            <p>List of Events Page</p>
+            <MobileNav />
+        </div>
+
     )
 }
 export default Page

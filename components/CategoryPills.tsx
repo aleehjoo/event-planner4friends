@@ -31,15 +31,12 @@ export default function CategoryPills() {
 
     const handleToggle = (name: string) => {
         setActivePills((prev) => {
-            if (prev.includes(name)) {
-                return prev.filter((n) => n !== name);
-            } else {
-                return [name, ...prev];
-            }
+            if (prev.includes(name)) return prev.filter((n) => n !== name);
+            return [name, ...prev];
         });
     };
 
-    // --- drag scroll behavior ---
+    // --- DESKTOP Drag Scroll ---
     const onMouseDown = (e: React.MouseEvent) => {
         if (!scrollRef.current) return;
         isDragging.current = true;
@@ -47,20 +44,34 @@ export default function CategoryPills() {
         scrollLeft.current = scrollRef.current.scrollLeft;
     };
 
-    const onMouseLeave = () => {
-        isDragging.current = false;
-    };
-
-    const onMouseUp = () => {
-        isDragging.current = false;
-    };
+    const onMouseLeave = () => (isDragging.current = false);
+    const onMouseUp = () => (isDragging.current = false);
 
     const onMouseMove = (e: React.MouseEvent) => {
         if (!isDragging.current || !scrollRef.current) return;
         e.preventDefault();
         const x = e.pageX - scrollRef.current.offsetLeft;
-        const walk = (x - startX.current) * 1.2; // adjust drag speed
+        const walk = (x - startX.current) * 1.2;
         scrollRef.current.scrollLeft = scrollLeft.current - walk;
+    };
+
+    // --- MOBILE Touch Scroll ---
+    const onTouchStart = (e: React.TouchEvent) => {
+        if (!scrollRef.current) return;
+        isDragging.current = true;
+        startX.current = e.touches[0].pageX - scrollRef.current.offsetLeft;
+        scrollLeft.current = scrollRef.current.scrollLeft;
+    };
+
+    const onTouchMove = (e: React.TouchEvent) => {
+        if (!isDragging.current || !scrollRef.current) return;
+        const x = e.touches[0].pageX - scrollRef.current.offsetLeft;
+        const walk = (x - startX.current) * 1.2;
+        scrollRef.current.scrollLeft = scrollLeft.current - walk;
+    };
+
+    const onTouchEnd = () => {
+        isDragging.current = false;
     };
 
     const sortedCategories = [
@@ -75,16 +86,12 @@ export default function CategoryPills() {
             onMouseLeave={onMouseLeave}
             onMouseUp={onMouseUp}
             onMouseMove={onMouseMove}
-            className="
-        w-full cursor-grab active:cursor-grabbing
-        overflow-x-hidden select-none
-      "
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+            className="w-full cursor-grab active:cursor-grabbing overflow-x-hidden select-none"
         >
-            <div
-                className="
-          flex gap-3 sm:gap-4 px-6 sm:px-10 py-3 sm:py-4 min-w-max
-        "
-            >
+            <div className="flex gap-3 sm:gap-4 px-6 sm:px-10 py-3 sm:py-4 min-w-max">
                 <AnimatePresence initial={false}>
                     {sortedCategories.map((cat) => {
                         const isActive = activePills.includes(cat.name);
@@ -95,18 +102,11 @@ export default function CategoryPills() {
                                 onClick={() => handleToggle(cat.name)}
                                 whileTap={{ scale: 0.95 }}
                                 transition={{ layout: { duration: 0.2 } }}
-                                className={`
-                  flex items-center gap-1.5 sm:gap-2 
-                  px-4 sm:px-5 py-2 sm:py-2.5 
-                  rounded-full border 
-                  text-sm sm:text-base font-medium 
-                  whitespace-nowrap transition-all
-                  ${
+                                className={`flex items-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border text-sm sm:text-base font-medium whitespace-nowrap transition-all ${
                                     isActive
                                         ? "bg-black text-white border-black"
                                         : "bg-white text-gray-800 border-gray-300 hover:bg-gray-100"
-                                }
-                `}
+                                }`}
                             >
                                 <span className="text-base sm:text-lg">{cat.emoji}</span>
                                 {cat.name}

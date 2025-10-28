@@ -1,11 +1,13 @@
 import React from 'react'
 import Header from "@/components/Header";
+import MobileNav from "@/components/MobileNav";
 
 const Page = () => {
     return (
         <div>
             <Header />
-            Create Event Page
+            <p>Create Event Page</p>
+            <MobileNav />
         </div>
     )
 }
