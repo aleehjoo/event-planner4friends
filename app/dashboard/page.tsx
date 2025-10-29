@@ -2,6 +2,7 @@ import React from 'react'
 import Header from "@/components/Header";
 import CategoryPills from "@/components/CategoryPills";
 import MobileNav from "@/components/MobileNav";
+import EventsCarousel from "@/components/EventsCarousel";
 
 const Page = () => {
     return (
@@ -14,8 +15,8 @@ const Page = () => {
                     See All
                 </p>
             </div>
+            <EventsCarousel />
 
-            Dashboard Page
             <MobileNav />
         </div>
     )
