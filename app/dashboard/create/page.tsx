@@ -3,6 +3,7 @@
 import React, { useMemo, useState } from 'react'
 import Header from "@/components/Header";
 import MobileNav from "@/components/MobileNav";
+import { EventFormData, EventCategory } from "@/types/event";
 
 const Page = () => {
     const categoryOptions = useMemo(() => [
@@ -22,7 +23,7 @@ const Page = () => {
         "Concert",
         "Shopping",
         "Jogging",
-    ], []);
+    ] as EventCategory[], []);
 
     const [name, setName] = useState("Beach Bonanza");
     const [date, setDate] = useState<string>(() => {
@@ -31,13 +32,13 @@ const Page = () => {
         return inTwoWeeks.toISOString().slice(0, 10);
     });
     const [imageUrl, setImageUrl] = useState("https://via.placeholder.com/1200x700?text=Beach+Bonanza");
-    const [category, setCategory] = useState("Beach");
+    const [category, setCategory] = useState<EventCategory>("Beach");
     const [notes, setNotes] = useState("");
     const [submitted, setSubmitted] = useState(false);
 
     const onSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        const payload = { name, date, imageUrl, category, notes };
+        const payload: EventFormData = { name, date, imageUrl, category, notes };
         // Placeholder action: log the payload and show a simple success state
         console.log("Create Event payload", payload);
         setSubmitted(true);
@@ -82,7 +83,7 @@ const Page = () => {
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
                                 <select
                                     value={category}
-                                    onChange={(e) => setCategory(e.target.value)}
+                                    onChange={(e) => setCategory(e.target.value as EventCategory)}
                                     className="w-full rounded-lg border border-gray-300 px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
                                 >
                                     {categoryOptions.map((opt) => (

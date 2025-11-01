@@ -2,8 +2,9 @@ import React from 'react'
 import MobileNav from "@/components/MobileNav";
 import Header from "@/components/Header";
 import Link from "next/link";
+import { Event } from "@/types/event";
 
-const placeholderEvents = [
+const placeholderEvents: Event[] = [
   {
     id: 1,
     name: "Beach Bonanza!",
@@ -29,7 +30,7 @@ const placeholderEvents = [
 
 const Page = () => {
   // To test empty state, set this to []
-  const events = placeholderEvents;
+  const events: Event[] = placeholderEvents;
 
   return (
     <div className="pb-20 bg-gray-50 min-h-screen">

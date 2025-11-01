@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { CarouselEvent } from "@/types/event";
 
 export default function EventsCarousel() {
     const scrollRef = useRef<HTMLDivElement>(null);
@@ -40,7 +41,7 @@ export default function EventsCarousel() {
     };
     const onTouchEnd = () => (isDragging.current = false);
 
-    const events = [
+    const events: CarouselEvent[] = [
         {
             name: "Beach Bonanza",
             date: "Nov 12, 2025",
