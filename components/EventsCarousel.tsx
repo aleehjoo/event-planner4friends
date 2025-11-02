@@ -1,45 +1,10 @@
 "use client";
 
-import { useRef } from "react";
 import { CarouselEvent } from "@/types/event";
+import { useDragScroll } from "@/hooks/useDragScroll";
 
 export default function EventsCarousel() {
-    const scrollRef = useRef<HTMLDivElement>(null);
-    const isDragging = useRef(false);
-    const startX = useRef(0);
-    const scrollLeft = useRef(0);
-
-    // --- Desktop drag ---
-    const onMouseDown = (e: React.MouseEvent) => {
-        if (!scrollRef.current) return;
-        isDragging.current = true;
-        startX.current = e.pageX - scrollRef.current.offsetLeft;
-        scrollLeft.current = scrollRef.current.scrollLeft;
-    };
-    const onMouseLeave = () => (isDragging.current = false);
-    const onMouseUp = () => (isDragging.current = false);
-    const onMouseMove = (e: React.MouseEvent) => {
-        if (!isDragging.current || !scrollRef.current) return;
-        e.preventDefault();
-        const x = e.pageX - scrollRef.current.offsetLeft;
-        const walk = (x - startX.current) * 1.2;
-        scrollRef.current.scrollLeft = scrollLeft.current - walk;
-    };
-
-    // --- Mobile swipe ---
-    const onTouchStart = (e: React.TouchEvent) => {
-        if (!scrollRef.current) return;
-        isDragging.current = true;
-        startX.current = e.touches[0].pageX - scrollRef.current.offsetLeft;
-        scrollLeft.current = scrollRef.current.scrollLeft;
-    };
-    const onTouchMove = (e: React.TouchEvent) => {
-        if (!isDragging.current || !scrollRef.current) return;
-        const x = e.touches[0].pageX - scrollRef.current.offsetLeft;
-        const walk = (x - startX.current) * 1.2;
-        scrollRef.current.scrollLeft = scrollLeft.current - walk;
-    };
-    const onTouchEnd = () => (isDragging.current = false);
+    const { scrollRef, ...dragHandlers } = useDragScroll();
 
     const events: CarouselEvent[] = [
         {
@@ -62,13 +27,7 @@ export default function EventsCarousel() {
     return (
         <div
             ref={scrollRef}
-            onMouseDown={onMouseDown}
-            onMouseLeave={onMouseLeave}
-            onMouseUp={onMouseUp}
-            onMouseMove={onMouseMove}
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
+            {...dragHandlers}
             className="w-full overflow-x-hidden cursor-grab active:cursor-grabbing select-none"
         >
             <div className="flex gap-6 px-6 sm:px-10 py-5 min-w-max">
