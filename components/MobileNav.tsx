@@ -2,16 +2,12 @@
 
 import { usePathname } from "next/navigation";
 import { Home, PlusCircle, Calendar, User } from "lucide-react";
+import { NAV_ITEMS } from "@/lib/constants";
 
 export default function MobileNav() {
     const pathname = usePathname();
 
-    const navItems = [
-        { name: "Home", path: "/dashboard", icon: Home },
-        { name: "Create", path: "/dashboard/create", icon: PlusCircle },
-        { name: "Calendar", path: "/dashboard/calendar", icon: Calendar },
-        { name: "Profile", path: "/dashboard/profile", icon: User },
-    ];
+    const navItems = NAV_ITEMS;
 
     return (
         <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-md md:hidden flex justify-around py-3 z-50">
@@ -28,7 +24,7 @@ export default function MobileNav() {
                         } hover:!text-blue-700 transition-colors`}
                     >
                         <Icon className={`w-6 h-6 mb-1 ${isActive ? "text-blue-600" : "text-gray-600"}`} />
-                        {item.name}
+                        {item.shortName}
                     </a>
                 );
             })}

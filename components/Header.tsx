@@ -2,16 +2,12 @@
 
 import { usePathname } from "next/navigation";
 import { Bell } from "lucide-react";
+import { NAV_ITEMS } from "@/lib/constants";
 
 export default function Header() {
     const pathname = usePathname();
 
-    const navItems = [
-        { name: "Home", path: "/dashboard" },
-        { name: "Create Event", path: "/dashboard/create" },
-        { name: "Calendar", path: "/dashboard/calendar" },
-        { name: "Profile", path: "/dashboard/profile" },
-    ];
+    const navItems = NAV_ITEMS;
 
     return (
         <header className="flex items-center justify-between w-full px-10 py-5 bg-white shadow-md">
