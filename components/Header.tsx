@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { Bell } from "lucide-react";
 import { NAV_ITEMS } from "@/lib/constants";
+import Link from "next/link";
 
 export default function Header() {
     const pathname = usePathname();
@@ -22,7 +23,7 @@ export default function Header() {
             <div className="flex items-center gap-10">
                 <nav className="hidden md:flex items-center gap-8">
                     {navItems.map((item) => (
-                        <a
+                        <Link
                             key={item.name}
                             href={item.path}
                             className={`relative pb-1 text-base font-medium !text-black hover:text-blue-700 transition-colors`}
@@ -31,7 +32,7 @@ export default function Header() {
                             {pathname === item.path && (
                                 <span className="absolute left-0 bottom-0 w-full h-[3px] bg-blue-700 rounded-full" />
                             )}
-                        </a>
+                        </Link>
                     ))}
                 </nav>
 

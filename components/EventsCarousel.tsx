@@ -2,27 +2,12 @@
 
 import { CarouselEvent } from "@/types/event";
 import { useDragScroll } from "@/hooks/useDragScroll";
+import { CAROUSEL_EVENTS } from "@/lib/constants";
 
 export default function EventsCarousel() {
     const { scrollRef, ...dragHandlers } = useDragScroll();
 
-    const events: CarouselEvent[] = [
-        {
-            name: "Beach Bonanza",
-            date: "Nov 12, 2025",
-            img: "https://via.placeholder.com/1200x700?text=Beach+Bonanza",
-        },
-        {
-            name: "City Lights Festival",
-            date: "Dec 5, 2025",
-            img: "https://via.placeholder.com/1200x700?text=City+Lights",
-        },
-        {
-            name: "Mountain Music Fest",
-            date: "Jan 8, 2026",
-            img: "https://via.placeholder.com/1200x700?text=Mountain+Fest",
-        },
-    ];
+    const events: CarouselEvent[] = CAROUSEL_EVENTS;
 
     return (
         <div

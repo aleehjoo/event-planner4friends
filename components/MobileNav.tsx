@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { Home, PlusCircle, Calendar, User } from "lucide-react";
 import { NAV_ITEMS } from "@/lib/constants";
+import Link from "next/link";
 
 export default function MobileNav() {
     const pathname = usePathname();
@@ -16,7 +17,7 @@ export default function MobileNav() {
                 const isActive = pathname === item.path;
 
                 return (
-                    <a
+                    <Link
                         key={item.name}
                         href={item.path}
                         className={`flex flex-col items-center text-xs font-medium ${
@@ -25,7 +26,7 @@ export default function MobileNav() {
                     >
                         <Icon className={`w-6 h-6 mb-1 ${isActive ? "text-blue-600" : "text-gray-600"}`} />
                         {item.shortName}
-                    </a>
+                    </Link>
                 );
             })}
         </nav>

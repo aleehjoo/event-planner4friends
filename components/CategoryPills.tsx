@@ -3,25 +3,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useDragScroll } from "@/hooks/useDragScroll";
+import { EVENT_CATEGORIES } from "@/lib/constants";
 
-const categories = [
-    { name: "Eat-out", emoji: "🍽️" },
-    { name: "Drinking", emoji: "🍻" },
-    { name: "Swimming", emoji: "🏊" },
-    { name: "Church", emoji: "⛪" },
-    { name: "Overnight", emoji: "🌙" },
-    { name: "Beach", emoji: "🏖️" },
-    { name: "Amusement Park", emoji: "🎢" },
-    { name: "Just chilling", emoji: "😌" },
-    { name: "Fun & Games", emoji: "🎮" },
-    { name: "Movie", emoji: "🎬" },
-    { name: "Road Trip", emoji: "🚗" },
-    { name: "Bar", emoji: "🍸" },
-    { name: "Party", emoji: "🎉" },
-    { name: "Concert", emoji: "🎤" },
-    { name: "Shopping", emoji: "🛍️" },
-    { name: "Jogging", emoji: "🏃" },
-];
+const categories = EVENT_CATEGORIES;
 
 export default function CategoryPills() {
     const [activePills, setActivePills] = useState<string[]>([]);
