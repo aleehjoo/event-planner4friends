@@ -1,20 +1,4 @@
-export type EventCategory = 
-    | "Eat-out" 
-    | "Drinking" 
-    | "Swimming" 
-    | "Church" 
-    | "Overnight"
-    | "Beach" 
-    | "Amusement Park" 
-    | "Just chilling" 
-    | "Fun & Games"
-    | "Movie" 
-    | "Road Trip" 
-    | "Bar" 
-    | "Party" 
-    | "Concert"
-    | "Shopping" 
-    | "Jogging";
+import type { EventCategory } from "@/lib/constants";
 
 export interface Event {
     id: number | string;

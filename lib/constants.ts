@@ -34,3 +34,6 @@ export const CAROUSEL_EVENTS = [
   { name: "Mountain Music Fest", date: "Jan 8, 2026", img: "https://via.placeholder.com/1200x700?text=Mountain+Fest" },
 ];
 
+// Derived types
+export type EventCategory = typeof EVENT_CATEGORIES[number]["name"];
+
