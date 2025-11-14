@@ -37,11 +37,11 @@ export default function Header() {
                             <Link
                                 key={item.name}
                                 href={item.path}
-                                className={`relative pb-1 text-base font-medium !text-black hover:text-blue-700 transition-colors`}
+                                className={`relative pb-1 text-base font-medium !text-black hover:text-blue-700 transition-colors no-underline border-b-0 hover:border-b-0`}
                             >
                                 {item.name}
                                 {pathname === item.path && (
-                                    <span className="absolute left-0 bottom-0 w-full h-[3px] bg-blue-700 rounded-full" />
+                                    <span className="absolute left-0 bottom-0 w-full h-[3px] bg-blue-700 rounded-full origin-left animate-slide-in" />
                                 )}
                             </Link>
                         ))}
