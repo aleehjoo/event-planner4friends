@@ -13,7 +13,7 @@ export default function Home() {
   };
 
   const handleLoginAsViewer = () => {
-    // Placeholder for future functionality
+    router.push("/viewer");
   };
 
   return (
