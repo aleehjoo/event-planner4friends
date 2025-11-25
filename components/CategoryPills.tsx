@@ -29,7 +29,7 @@ export default function CategoryPills() {
             {...dragHandlers}
             className="w-full cursor-grab active:cursor-grabbing overflow-x-hidden select-none"
         >
-            <div className="flex gap-3 sm:gap-4 px-6 sm:px-10 py-3 sm:py-4 min-w-max">
+            <div className="flex gap-3 sm:gap-4 px-6 sm:px-10 py-4 sm:py-5 min-w-max">
                 <AnimatePresence initial={false}>
                     {sortedCategories.map((cat) => {
                         const isActive = activePills.includes(cat.name);
@@ -39,11 +39,12 @@ export default function CategoryPills() {
                                 layout
                                 onClick={() => handleToggle(cat.name)}
                                 whileTap={{ scale: 0.95 }}
+                                whileHover={{ scale: 1.05, y: -2 }}
                                 transition={{ layout: { duration: 0.2 } }}
-                                className={`flex items-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border text-sm sm:text-base font-medium whitespace-nowrap transition-all ${
+                                className={`flex items-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full text-sm sm:text-base font-semibold whitespace-nowrap transition-all shadow-sm ${
                                     isActive
-                                        ? "bg-black text-white border-black"
-                                        : "bg-white text-gray-800 border-gray-300 hover:bg-gray-100"
+                                        ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 shadow-lg shadow-blue-500/30"
+                                        : "bg-white text-gray-800 border border-gray-200 hover:border-gray-300 hover:bg-gray-50 hover:shadow-md"
                                 }`}
                             >
                                 <span className="text-base sm:text-lg">{cat.emoji}</span>
