@@ -7,15 +7,9 @@ import MobileNav from "@/components/MobileNav";
 import EventsCarousel from "@/components/EventsCarousel";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { Calendar, TrendingUp, Users, Sparkles, ArrowRight } from "lucide-react";
-import { CAROUSEL_EVENTS } from "@/lib/constants";
+import { Sparkles, ArrowRight } from "lucide-react";
 
 const Page = () => {
-    // Calculate stats from events
-    const totalEvents = CAROUSEL_EVENTS.length;
-    const upcomingEvents = CAROUSEL_EVENTS.length; // In a real app, filter by date
-    const activeCategories = 8; // Example stat
-    
     // Get current time for greeting
     const getGreeting = () => {
         const hour = new Date().getHours();
@@ -23,30 +17,6 @@ const Page = () => {
         if (hour < 17) return "Good afternoon";
         return "Good evening";
     };
-
-    const stats = [
-        {
-            label: "Upcoming Events",
-            value: upcomingEvents,
-            icon: Calendar,
-            gradient: "from-blue-500 to-cyan-500",
-            change: "+2 this week"
-        },
-        {
-            label: "Total Events",
-            value: totalEvents,
-            icon: TrendingUp,
-            gradient: "from-purple-500 to-pink-500",
-            change: "All time"
-        },
-        {
-            label: "Active Categories",
-            value: activeCategories,
-            icon: Sparkles,
-            gradient: "from-orange-500 to-red-500",
-            change: "Popular now"
-        },
-    ];
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 pb-20">
@@ -76,7 +46,7 @@ const Page = () => {
                         >
                             <Link
                                 href="/dashboard/create"
-                                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300"
+                                className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-xl font-semibold shadow-lg hover:bg-gray-800 transition-all duration-300 border-2 border-gray-900 hover:border-gray-700"
                             >
                                 <Sparkles className="w-5 h-5" />
                                 Create Event
@@ -86,54 +56,12 @@ const Page = () => {
                 </motion.div>
             </section>
 
-            {/* Stats Cards */}
-            <section className="px-6 sm:px-10 mb-8">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
-                    className="max-w-7xl mx-auto"
-                >
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-                        {stats.map((stat, index) => {
-                            const Icon = stat.icon;
-                            return (
-                                <motion.div
-                                    key={stat.label}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.5, delay: 0.15 + index * 0.1 }}
-                                    whileHover={{ y: -4, scale: 1.02 }}
-                                    className="relative group"
-                                >
-                                    <div className={`absolute inset-0 bg-gradient-to-r ${stat.gradient} opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300`} />
-                                    <div className="relative bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
-                                        <div className="flex items-start justify-between mb-4">
-                                            <div className={`p-3 rounded-xl bg-gradient-to-br ${stat.gradient} shadow-lg`}>
-                                                <Icon className="w-6 h-6 text-white" />
-                                            </div>
-                                            <span className="text-xs font-medium text-gray-500 px-2 py-1 bg-gray-100 rounded-lg">
-                                                {stat.change}
-                                            </span>
-                                        </div>
-                                        <div>
-                                            <p className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</p>
-                                            <p className="text-sm text-gray-600">{stat.label}</p>
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            );
-                        })}
-                    </div>
-                </motion.div>
-            </section>
-
             {/* Category Pills Section */}
-            <section className="mb-8">
+            <section className="mb-8 mt-16">
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
                 >
                     <div className="px-6 sm:px-10 mb-4 max-w-7xl mx-auto">
                         <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-1">Browse by Category</h2>
@@ -148,7 +76,7 @@ const Page = () => {
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
                 >
                     <div className="flex flex-row items-center justify-between px-6 sm:px-10 mb-6 max-w-7xl mx-auto">
                         <div>
