@@ -32,12 +32,19 @@ const Page = () => {
         return inTwoWeeks.toISOString().slice(0, 10);
     });
     const [imageUrl, setImageUrl] = useState("https://via.placeholder.com/1200x700?text=Beach+Bonanza");
-    const [category, setCategory] = useState<EventCategory>("Beach");
+    const [category, setCategory] = useState<EventCategory | "">("");
     const [notes, setNotes] = useState("");
     const [submitted, setSubmitted] = useState(false);
+    const [categoryError, setCategoryError] = useState<string | null>(null);
 
     const onSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        if (!category) {
+            setCategoryError("Please select a category before creating the event.");
+            return;
+        }
+
+        setCategoryError(null);
         const payload: EventFormData = { name, date, imageUrl, category, notes };
         // Placeholder action: log the payload and show a simple success state
         console.log("Create Event payload", payload);
@@ -83,13 +90,21 @@ const Page = () => {
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
                                 <select
                                     value={category}
-                                    onChange={(e) => setCategory(e.target.value as EventCategory)}
-                                    className="w-full rounded-lg border border-gray-300 px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                                    onChange={(e) => {
+                                        setCategory(e.target.value as EventCategory | "");
+                                        if (categoryError) setCategoryError(null);
+                                    }}
+                                    className={`w-full rounded-lg border px-3 py-2 bg-white focus:outline-none focus:ring-2 ${categoryError ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-blue-600"}`}
+                                    required
                                 >
+                                    <option value="" disabled>Select a category</option>
                                     {categoryOptions.map((opt) => (
                                         <option key={opt} value={opt}>{opt}</option>
                                     ))}
                                 </select>
+                                {categoryError && (
+                                    <p className="mt-1 text-sm text-red-600">{categoryError}</p>
+                                )}
                             </div>
                         </div>
 
@@ -145,7 +160,7 @@ const Page = () => {
                             <div className="absolute bottom-4 left-4 text-white">
                                 <p className="text-sm text-gray-300">{new Date(date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</p>
                                 <h4 className="text-2xl font-semibold !text-gray-300 leading-tight">{name || "Event Name"}</h4>
-                                <p className="text-xs text-gray-300/90 mt-1">{category}</p>
+                                <p className="text-xs text-gray-300/90 mt-1">{category || "Select a category"}</p>
                             </div>
                         </div>
                     </div>
