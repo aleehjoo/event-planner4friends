@@ -24,5 +24,6 @@ export interface CarouselEvent {
     name: string;
     date: string; // Can be formatted date string for display
     img: string;
+    category?: EventCategory; // Optional category for filtering
 }
 

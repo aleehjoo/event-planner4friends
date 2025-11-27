@@ -29,9 +29,14 @@ export const EVENT_CATEGORIES = [
 
 // Shared placeholder events for carousel
 export const CAROUSEL_EVENTS = [
-  { name: "Beach Bonanza", date: "Nov 12, 2025", img: "https://via.placeholder.com/1200x700?text=Beach+Bonanza" },
-  { name: "City Lights Festival", date: "Dec 5, 2025", img: "https://via.placeholder.com/1200x700?text=City+Lights" },
-  { name: "Mountain Music Fest", date: "Jan 8, 2026", img: "https://via.placeholder.com/1200x700?text=Mountain+Fest" },
+  { name: "Beach Bonanza", date: "Nov 12, 2025", img: "https://via.placeholder.com/1200x700?text=Beach+Bonanza", category: "Beach" as EventCategory },
+  { name: "City Lights Festival", date: "Dec 5, 2025", img: "https://via.placeholder.com/1200x700?text=City+Lights", category: "Concert" as EventCategory },
+  { name: "Mountain Music Fest", date: "Jan 8, 2026", img: "https://via.placeholder.com/1200x700?text=Mountain+Fest", category: "Concert" as EventCategory },
+  { name: "Game Night Extravaganza", date: "Nov 15, 2025", img: "https://via.placeholder.com/1200x700?text=Game+Night", category: "Fun & Games" as EventCategory },
+  { name: "Sunset Swimming Session", date: "Nov 18, 2025", img: "https://via.placeholder.com/1200x700?text=Swimming", category: "Swimming" as EventCategory },
+  { name: "Foodie Adventure", date: "Nov 20, 2025", img: "https://via.placeholder.com/1200x700?text=Foodie", category: "Eat-out" as EventCategory },
+  { name: "Movie Marathon", date: "Nov 22, 2025", img: "https://via.placeholder.com/1200x700?text=Movies", category: "Movie" as EventCategory },
+  { name: "Road Trip Adventure", date: "Nov 25, 2025", img: "https://via.placeholder.com/1200x700?text=Road+Trip", category: "Road Trip" as EventCategory },
 ];
 
 // Derived types

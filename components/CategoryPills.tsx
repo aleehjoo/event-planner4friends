@@ -7,15 +7,26 @@ import { EVENT_CATEGORIES } from "@/lib/constants";
 
 const categories = EVENT_CATEGORIES;
 
-export default function CategoryPills() {
-    const [activePills, setActivePills] = useState<string[]>([]);
+interface CategoryPillsProps {
+    selectedCategories?: string[];
+    onCategoryChange?: (categories: string[]) => void;
+}
+
+export default function CategoryPills({ selectedCategories, onCategoryChange }: CategoryPillsProps) {
+    const [internalActivePills, setInternalActivePills] = useState<string[]>([]);
+    const activePills = selectedCategories !== undefined ? selectedCategories : internalActivePills;
     const { scrollRef, ...dragHandlers } = useDragScroll();
 
     const handleToggle = (name: string) => {
-        setActivePills((prev) => {
-            if (prev.includes(name)) return prev.filter((n) => n !== name);
-            return [name, ...prev];
-        });
+        const newCategories = activePills.includes(name)
+            ? activePills.filter((n) => n !== name)
+            : [name, ...activePills];
+        
+        if (onCategoryChange) {
+            onCategoryChange(newCategories);
+        } else {
+            setInternalActivePills(newCategories);
+        }
     };
 
     const sortedCategories = [

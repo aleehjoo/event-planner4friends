@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react'
+import React, { useState } from 'react'
 import Header from "@/components/Header";
 import CategoryPills from "@/components/CategoryPills";
 import MobileNav from "@/components/MobileNav";
@@ -10,6 +10,8 @@ import { motion } from "motion/react";
 import { Sparkles, ArrowRight } from "lucide-react";
 
 const Page = () => {
+    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+
     // Get current time for greeting
     const getGreeting = () => {
         const hour = new Date().getHours();
@@ -86,7 +88,10 @@ const Page = () => {
 
                     {/* Category Pills */}
                     <div className="mb-10 md:mb-12">
-                        <CategoryPills />
+                        <CategoryPills 
+                            selectedCategories={selectedCategories}
+                            onCategoryChange={setSelectedCategories}
+                        />
                     </div>
 
                     {/* Events Carousel */}
@@ -94,6 +99,11 @@ const Page = () => {
                         <div className="mb-6 flex items-center justify-between">
                             <h3 className="text-lg md:text-xl font-semibold text-gray-800">
                                 Featured Events
+                                {selectedCategories.length > 0 && (
+                                    <span className="ml-2 text-sm font-normal text-gray-500">
+                                        ({selectedCategories.length} {selectedCategories.length === 1 ? 'category' : 'categories'} selected)
+                                    </span>
+                                )}
                             </h3>
                             <Link 
                                 href="/dashboard/events" 
@@ -103,7 +113,7 @@ const Page = () => {
                                 <ArrowRight className="w-3.5 h-3.5" />
                             </Link>
                         </div>
-                        <EventsCarousel />
+                        <EventsCarousel selectedCategories={selectedCategories} />
                     </div>
                 </motion.div>
             </section>
