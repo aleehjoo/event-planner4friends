@@ -23,13 +23,19 @@ export default function Header() {
     return (
         <>
             <header className="flex items-center justify-between w-full px-10 py-5 bg-white shadow-md relative z-40">
-                <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-full bg-gray-300" />
+                <Link
+                    href="/dashboard/profile"
+                    aria-label="Go to your profile"
+                    className="flex items-center gap-4 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-full"
+                >
+                    <div className="w-14 h-14 rounded-full bg-gray-300 transition ring-0 ring-blue-200 group-hover:ring-4 group-focus-visible:ring-4" />
                     <div className="flex flex-col leading-tight">
                         <span className="text-sm text-gray-500">Welcome</span>
-                        <span className="text-lg font-semibold text-gray-800">Display Name</span>
+                        <span className="text-lg font-semibold text-gray-800 group-hover:text-blue-700 transition-colors">
+                            Display Name
+                        </span>
                     </div>
-                </div>
+                </Link>
 
                 <div className="flex items-center gap-10">
                     <nav className="hidden md:flex items-center gap-8">
